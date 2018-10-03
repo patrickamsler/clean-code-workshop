@@ -27,6 +27,10 @@ public class Color {
         this(colorName.getName());
     }
 
+    public static Color newColorFromName(ColorName colorName) {
+        return new Color(colorName.getName());
+    }
+
     @Deprecated
     public Color(String colorAsText) {
         this.colorAsText = colorAsText;
