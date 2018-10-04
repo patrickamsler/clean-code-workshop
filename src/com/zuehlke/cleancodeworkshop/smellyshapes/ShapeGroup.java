@@ -14,21 +14,30 @@ public class ShapeGroup extends ComplexShape {
     }
 
     public void add(Shape shape) {
-        if (!readOnly) {
-            int newSize = size + 1;
-            if (newSize > shapes.length) {
-                Shape[] newShapes = new Shape[shapes.length + 10];
-                for (int i = 0; i < size; i++) {
-                    newShapes[i] = shapes[i];
-                }
-                shapes = newShapes;
-            }
-
-            if (contains(shape)) {
-                return;
-            }
-            shapes[size++] = shape;
+        if (readOnly || contains(shape)) {
+            return;
         }
+        addToArray(shape);
+    }
+
+    private void addToArray(Shape shape) {
+        if (shouldArrayGrow()) {
+            growArray();
+        }
+
+        shapes[size++] = shape;
+    }
+
+    private boolean shouldArrayGrow() {
+        return size + 1 > shapes.length;
+    }
+
+    private void growArray() {
+        Shape[] newShapes = new Shape[shapes.length + 10];
+        for (int i = 0; i < size; i++) {
+            newShapes[i] = shapes[i];
+        }
+        shapes = newShapes;
     }
 
     public boolean contains(Shape shape) {
