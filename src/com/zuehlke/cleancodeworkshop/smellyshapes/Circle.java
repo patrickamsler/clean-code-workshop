@@ -15,17 +15,21 @@ public class Circle extends SimpleShape {
     }
 
     public boolean contains(int x, int y) {
-        boolean result = (x - this.x)*(x - this.x) + (y - this.y)*(y - this.y) <= radius*radius;
-        if (result == true) {
-            numberOfContainingPoints++;
-        }
-        return result;
+        int deltaX = x - this.x;
+        int deltaY = y - this.y;
+        return square(deltaX) + square(deltaY) <= square(radius);
+    }
+
+    private int square(int val) {
+        return val * val;
     }
 
     public int countContainingPoints(int[] xCords, int[] yCords) {
         numberOfContainingPoints = 0;
         for (int i = 0; i < xCords.length; ++i) {
-            contains(xCords[i], yCords[i]);
+            if (contains(xCords[i], yCords[i])) {
+                numberOfContainingPoints++;
+            }
         }
         return numberOfContainingPoints;
     }
