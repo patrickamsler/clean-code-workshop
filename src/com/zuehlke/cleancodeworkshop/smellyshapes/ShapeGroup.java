@@ -1,6 +1,6 @@
 package com.zuehlke.cleancodeworkshop.smellyshapes;
 
-public class ShapeGroup extends Shape {
+public class ShapeGroup implements Shape {
 
     private boolean readOnly = false;
     Shape[] shapes = new Shape[10];
@@ -54,5 +54,15 @@ public class ShapeGroup extends Shape {
 
     public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
+    }
+
+    public String toXml() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("<shapegroup>\n");
+        for (int i = 0; i < size; i++) {
+            builder.append(shapes[i].toXml());
+        }
+        builder.append("</shapegroup>\n");
+        return builder.toString();
     }
 }

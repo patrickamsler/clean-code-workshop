@@ -1,7 +1,7 @@
 package com.zuehlke.cleancodeworkshop.smellyshapes;
 
 
-public class Rectangle extends Shape {
+public class Rectangle implements Shape {
 
     protected Color c = new Color("Blue");
     private int x;
@@ -43,5 +43,16 @@ public class Rectangle extends Shape {
     public String toString() {
         return String.format("Rectangle: (%d,%d) width=%d height=%d color=%s", x, y, width, height,
                              c.getColorAsHex());
+    }
+
+    public String toXml() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("<rectangle");
+        builder.append(" x=\"" + getX() + "\"");
+        builder.append(" y=\"" + getY() + "\"");
+        builder.append(" width=\"" + getWidth() + "\"");
+        builder.append(" height=\"" + getHeight() + "\"");
+        builder.append(" />\n");
+        return builder.toString();
     }
 }
